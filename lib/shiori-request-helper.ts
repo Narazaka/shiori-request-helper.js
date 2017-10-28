@@ -42,12 +42,16 @@ export function wrapRequestCallback(requestCallback: RequestCallback, defaultHea
    * @param requestStr SHIORI Request
    * @return SHIORI Response
    */
-  return async function request(requestStr: string) {
+  return async function request(requestStr: string | ShioriJK.Message.Request) {
     let _request;
-    try {
-      _request = requestParser.parse(requestStr);
-    } catch (error) {
-      return buildResponse(BadRequest());
+    if (typeof requestStr === "string") {
+      try {
+        _request = requestParser.parse(requestStr);
+      } catch (error) {
+        return buildResponse(BadRequest());
+      }
+    } else {
+      _request = requestStr;
     }
     if (/^2/.test(_request.request_line.version as string)) {
       return buildResponse(BadRequest());

@@ -8,7 +8,8 @@ import * as assert from "assert";
 
 // tslint:disable no-null-keyword no-magic-numbers
 
-const request3 = new ShioriJK.Message.Request({request_line: {version: "3.0", method: "GET"}}).toString();
+const request3obj = new ShioriJK.Message.Request({request_line: {version: "3.0", method: "GET"}});
+const request3 = request3obj.toString();
 const request2 = new ShioriJK.Message.Request({request_line: {version: "2.6", method: "GET Sentence"}}).toString();
 
 function parseResponse(responseStr: string) {
@@ -35,6 +36,13 @@ describe("generateRequestCallback", () => {
       it("causes Bad Request", async () => assert.equal(
         parseResponse(await wrapRequestCallback(() => 1)("foo")).status_line.code,
         400,
+      ));
+    });
+
+    context("SHIORI/3.x object", () => {
+      it("causes OK", async () => assert.equal(
+        parseResponse(await wrapRequestCallback(() => 1)(request3obj)).status_line.code,
+        200,
       ));
     });
   });
