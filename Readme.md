@@ -1,4 +1,4 @@
-# [shiori-request-helper](https://github.com/Narazaka/shiori-request-helper)
+# [shiori-request-helper.js](https://github.com/Narazaka/shiori-request-helper.js)
 
 [![npm](https://img.shields.io/npm/v/shiori-request-helper.svg)](https://www.npmjs.com/package/shiori-request-helper)
 [![npm license](https://img.shields.io/npm/l/shiori-request-helper.svg)](https://www.npmjs.com/package/shiori-request-helper)
