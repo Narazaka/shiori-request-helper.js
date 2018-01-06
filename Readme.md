@@ -1,5 +1,7 @@
 # [shiori-request-helper.js](https://github.com/Narazaka/shiori-request-helper.js)
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/Narazaka/shiori-request-helper.js.svg)](https://greenkeeper.io/)
+
 [![npm](https://img.shields.io/npm/v/shiori-request-helper.svg)](https://www.npmjs.com/package/shiori-request-helper)
 [![npm license](https://img.shields.io/npm/l/shiori-request-helper.svg)](https://www.npmjs.com/package/shiori-request-helper)
 [![npm download total](https://img.shields.io/npm/dt/shiori-request-helper.svg)](https://www.npmjs.com/package/shiori-request-helper)
