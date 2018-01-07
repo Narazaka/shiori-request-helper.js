@@ -5,12 +5,13 @@
 [![npm download total](https://img.shields.io/npm/dt/shiori-request-helper.svg)](https://www.npmjs.com/package/shiori-request-helper)
 [![npm download by month](https://img.shields.io/npm/dm/shiori-request-helper.svg)](https://www.npmjs.com/package/shiori-request-helper)
 
-[![Dependency Status](https://david-dm.org/Narazaka/shiori-request-helper.js.svg)](https://david-dm.org/Narazaka/shiori-request-helper.js)
-[![devDependency Status](https://david-dm.org/Narazaka/shiori-request-helper.js/dev-status.svg)](https://david-dm.org/Narazaka/shiori-request-helper.js#info=devDependencies)
-[![Travis Build Status](https://travis-ci.org/Narazaka/shiori-request-helper.js.svg)](https://travis-ci.org/Narazaka/shiori-request-helper.js)
-[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/Narazaka/shiori-request-helper.js?svg=true)](https://ci.appveyor.com/project/Narazaka/shiori-request-helper-js)
+[![Dependency Status](https://david-dm.org/Narazaka/shiori-request-helper.js/status.svg)](https://david-dm.org/Narazaka/shiori-request-helper.js)
+[![devDependency Status](https://david-dm.org/Narazaka/shiori-request-helper.js/dev-status.svg)](https://david-dm.org/Narazaka/shiori-request-helper.js?type=dev)
+[![Travis Build Status](https://travis-ci.org/Narazaka/shiori-request-helper.js.svg?branch=master)](https://travis-ci.org/Narazaka/shiori-request-helper.js)
+[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/Narazaka/shiori-request-helper.js?svg=true&branch=master)](https://ci.appveyor.com/project/Narazaka/shiori-request-helper-js)
 [![codecov.io](https://codecov.io/github/Narazaka/shiori-request-helper.js/coverage.svg?branch=master)](https://codecov.io/github/Narazaka/shiori-request-helper.js?branch=master)
 [![Code Climate](https://codeclimate.com/github/Narazaka/shiori-request-helper.js/badges/gpa.svg)](https://codeclimate.com/github/Narazaka/shiori-request-helper.js)
+[![Greenkeeper badge](https://badges.greenkeeper.io/Narazaka/shiori-request-helper.js.svg)](https://greenkeeper.io/)
 
 Ukagaka SHIORI request() handler wrapper and utilities
 
