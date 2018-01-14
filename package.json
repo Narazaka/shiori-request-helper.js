@@ -17,7 +17,7 @@
     "test": "nyc mocha"
   },
   "dependencies": {
-    "shiorijk": "^0.8.2"
+    "shiorijk": "^1.0.0"
   },
   "devDependencies": {
     "@types/mocha": "^2.2.44",
