@@ -17,6 +17,13 @@
             true,
             "never-prefix"
         ],
-        "only-arrow-functions": false
+        "only-arrow-functions": false,
+        "newline-per-chained-call": false,
+        "completed-docs": false,
+        "no-unsafe-any": false,
+        "strict-type-predicates": false,
+        "strict-boolean-expressions": false,
+        "no-use-before-declare": false,
+        "no-void-expression": [true, "ignore-arrow-function-shorthand"]
     }
 }
