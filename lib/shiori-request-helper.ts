@@ -26,8 +26,9 @@ export function wrapRequestCallback(requestCallback: RequestCallback, defaultHea
     const headers = response.headers;
     if (!statusLine.version) statusLine.version = "3.0";
     if (!statusLine.code) {
+      const value = headers.header.Value;
       statusLine.code = // tslint:disable-next-line triple-equals no-null-keyword no-magic-numbers
-        headers.header.Value != null && headers.header.Value.toString().length ? 200 : 204;
+        value != null && value.toString().length ? 200 : 204;
     }
     for (const name of Object.keys(defaultHeaders)) {
       // tslint:disable-next-line triple-equals no-null-keyword
