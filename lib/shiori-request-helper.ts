@@ -36,18 +36,33 @@ export function completeResponse(response: ShioriJK.Message.Response, defaultHea
 
 /**
  * handle request with lazy callback return
- * @param requestParser request parser
+ * @param requestStr request string or object
  * @param requestCallback lazy request callback
- * @param requestStr request string
+ * @param requestParser request parser
  */
 export async function handleRequestLazy(
-  requestParser: ShioriJK.Shiori.Request.Parser,
-  requestCallback: RequestCallback,
   requestStr: string | ShioriJK.Message.Request,
+  requestCallback: RequestCallback,
+  requestParser: ShioriJK.Shiori.Request.Parser,
+): Promise<ShioriJK.Message.Response>;
+/**
+ * handle request with lazy callback return
+ * @param request request object
+ * @param requestCallback lazy request callback
+ */
+export async function handleRequestLazy(
+  request: ShioriJK.Message.Request,
+  requestCallback: RequestCallback,
+): Promise<ShioriJK.Message.Response>;
+export async function handleRequestLazy(
+  requestStr: string | ShioriJK.Message.Request,
+  requestCallback: RequestCallback,
+  requestParser?: ShioriJK.Shiori.Request.Parser,
 ) {
   let _request;
   if (typeof requestStr === "string") {
     try {
+      if (!requestParser) return InternalServerError();
       _request = requestParser.parse(requestStr);
     } catch (error) {
       return BadRequest();
@@ -88,7 +103,7 @@ export function wrapRequestCallback(requestCallback: RequestCallback, defaultHea
    * @return SHIORI Response
    */
   return async function request(requestStr: string | ShioriJK.Message.Request) {
-    return completeResponse(await handleRequestLazy(requestParser, requestCallback, requestStr), defaultHeaders);
+    return completeResponse(await handleRequestLazy(requestStr, requestCallback, requestParser), defaultHeaders);
   };
 }
 
