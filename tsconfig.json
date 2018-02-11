@@ -2,7 +2,7 @@
   "compileOnSave": true,
   "compilerOptions": {
     "module": "commonjs",
-    "target": "es5",
+    "target": "es2017",
     "declaration": true,
     "forceConsistentCasingInFileNames": true,
     "noImplicitAny": true,
@@ -14,14 +14,6 @@
     "preserveConstEnums": true,
     "sourceMap": true,
     "strictNullChecks": true,
-    "outDir": "dist",
-    "lib": [
-      "es5",
-      "es2015.promise"
-    ],
-    "types": [
-      "shiorijk",
-      "node"
-    ]
+    "outDir": "dist"
   }
 }
