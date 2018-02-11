@@ -13,6 +13,82 @@ export interface Headers {
 }
 
 /**
+ * complete response struct
+ * @param response response
+ * @param defaultHeaders default headers
+ */
+export function completeResponse(response: ShioriJK.Message.Response, defaultHeaders: Headers = {}) {
+  const statusLine = response.status_line;
+  const headers = response.headers;
+  if (!statusLine.version) statusLine.version = "3.0";
+  if (!statusLine.code) {
+    const value = headers.header.Value;
+    statusLine.code = // tslint:disable-next-line triple-equals no-null-keyword no-magic-numbers
+      value != null && value.toString().length ? 200 : 204;
+  }
+  for (const name of Object.keys(defaultHeaders)) {
+    // tslint:disable-next-line triple-equals no-null-keyword
+    if (headers.header[name] == null) headers.header[name] = defaultHeaders[name];
+  }
+
+  return response;
+}
+
+/**
+ * generate `completeResponse()` with default headers
+ * @param defaultHeaders default headers
+ */
+export function generateCompleteResponseWithDefault(defaultHeaders: Headers) {
+  /**
+   * complete response struct with default headers
+   * @param response response
+   */
+  return function completeResponseWithDefault(response: ShioriJK.Message.Response) {
+    return completeResponse(response, defaultHeaders);
+  };
+}
+
+/**
+ * handle request with lazy callback return
+ * @param requestParser request parser
+ * @param completeResponseWithDefault `generateCompleteResponseWithDefault()`
+ * @param requestCallback lazy request callback
+ * @param requestStr request string
+ */
+export async function handleRequestLazy(
+  requestParser: ShioriJK.Shiori.Request.Parser,
+  requestCallback: RequestCallback,
+  requestStr: string | ShioriJK.Message.Request,
+) {
+  let _request;
+  if (typeof requestStr === "string") {
+    try {
+      _request = requestParser.parse(requestStr);
+    } catch (error) {
+      return BadRequest();
+    }
+  } else {
+    _request = requestStr;
+  }
+  if (/^2/.test(_request.request_line.version as string)) {
+    return BadRequest();
+  }
+  try {
+    const response = await requestCallback(_request);
+    // tslint:disable-next-line triple-equals no-null-keyword
+    if (response == null) {
+      return NoContent();
+    } else if (typeof response === "string" || typeof response === "number") {
+      return OK(response);
+    } else {
+      return response;
+    }
+  } catch (error) {
+    return InternalServerError();
+  }
+}
+
+/**
  * wraps request callback
  * @param requestCallback main request callback
  * @param defaultHeaders default headers
@@ -20,23 +96,7 @@ export interface Headers {
  */
 export function wrapRequestCallback(requestCallback: RequestCallback, defaultHeaders: Headers = {}) {
   const requestParser = new ShioriJK.Shiori.Request.Parser();
-
-  function buildResponse(response: ShioriJK.Message.Response) {
-    const statusLine = response.status_line;
-    const headers = response.headers;
-    if (!statusLine.version) statusLine.version = "3.0";
-    if (!statusLine.code) {
-      const value = headers.header.Value;
-      statusLine.code = // tslint:disable-next-line triple-equals no-null-keyword no-magic-numbers
-        value != null && value.toString().length ? 200 : 204;
-    }
-    for (const name of Object.keys(defaultHeaders)) {
-      // tslint:disable-next-line triple-equals no-null-keyword
-      if (headers.header[name] == null) headers.header[name] = defaultHeaders[name];
-    }
-
-    return response;
-  }
+  const completeResponseWithDefault = generateCompleteResponseWithDefault(defaultHeaders);
 
   /**
    * SHIORI request()
@@ -44,32 +104,7 @@ export function wrapRequestCallback(requestCallback: RequestCallback, defaultHea
    * @return SHIORI Response
    */
   return async function request(requestStr: string | ShioriJK.Message.Request) {
-    let _request;
-    if (typeof requestStr === "string") {
-      try {
-        _request = requestParser.parse(requestStr);
-      } catch (error) {
-        return buildResponse(BadRequest());
-      }
-    } else {
-      _request = requestStr;
-    }
-    if (/^2/.test(_request.request_line.version as string)) {
-      return buildResponse(BadRequest());
-    }
-    try {
-      const response = await requestCallback(_request);
-      // tslint:disable-next-line triple-equals no-null-keyword
-      if (response == null) {
-        return buildResponse(NoContent());
-      } else if (typeof response === "string" || typeof response === "number") {
-        return buildResponse(OK(response));
-      } else {
-        return buildResponse(response);
-      }
-    } catch (error) {
-      return buildResponse(InternalServerError());
-    }
+    return completeResponseWithDefault(await handleRequestLazy(requestParser, requestCallback, requestStr));
   };
 }
 
