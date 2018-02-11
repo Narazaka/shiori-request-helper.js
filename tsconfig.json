@@ -14,6 +14,9 @@
     "preserveConstEnums": true,
     "sourceMap": true,
     "strictNullChecks": true,
-    "outDir": "dist"
+    "outDir": "dist",
+    "types": [
+      "node"
+    ]
   }
 }
