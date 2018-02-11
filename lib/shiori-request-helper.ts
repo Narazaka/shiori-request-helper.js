@@ -62,7 +62,7 @@ export async function handleRequestLazy(
   let _request;
   if (typeof requestStr === "string") {
     try {
-      if (!requestParser) return InternalServerError();
+      if (!requestParser) return InternalServerError("SHIORI request parser not found");
       _request = requestParser.parse(requestStr);
     } catch (error) {
       return BadRequest();
@@ -84,7 +84,7 @@ export async function handleRequestLazy(
       return response;
     }
   } catch (error) {
-    return InternalServerError();
+    return InternalServerError(error);
   }
 }
 
@@ -168,4 +168,11 @@ export const BadRequest = () => new ShioriJK.Message.Response({status_line: {cod
  * 500 Internal Server Error
  * @return SHIORI Response
  */
-export const InternalServerError = () => new ShioriJK.Message.Response({status_line: {code: 500} });
+export const InternalServerError = (message?: string | Error, header = "X-Shiori-Error") =>
+  new ShioriJK.Message.Response({
+    status_line: {code: 500},
+    headers: message === undefined ? {} : {
+      [header]:
+        (message instanceof Error ? message.stack || message.message : message.toString()).replace(/\r?\n/g, "\\n"),
+    },
+  });

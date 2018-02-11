@@ -88,9 +88,54 @@ describe("BadRequest", function() {
 });
 
 describe("InternalServerError", function() {
-  it("works", function() {
-    assert.deepEqual(InternalServerError(), new ShioriJK.Message.Response({
-      status_line: {code: 500},
-    }));
+  context("no args", function() {
+    it("works", function() {
+      assert.deepEqual(InternalServerError(), new ShioriJK.Message.Response({
+        status_line: {code: 500},
+      }));
+    });
+  });
+
+  context("with string", function() {
+    it("works with single line", function() {
+      assert.deepEqual(InternalServerError("error string"), new ShioriJK.Message.Response({
+        status_line: {code: 500},
+        headers: {
+          "X-Shiori-Error": "error string",
+        },
+      }));
+    });
+
+    it("works with multi line", function() {
+      assert.deepEqual(InternalServerError("error string\r\nnext line"), new ShioriJK.Message.Response({
+        status_line: {code: 500},
+        headers: {
+          "X-Shiori-Error": "error string\\nnext line",
+        },
+      }));
+    });
+  });
+
+  context("with Error", function() {
+    it("works with stack", function() {
+      const error = new Error("an error\nnext line");
+      assert.deepEqual(InternalServerError(error), new ShioriJK.Message.Response({
+        status_line: {code: 500},
+        headers: {
+          "X-Shiori-Error": (error.stack as string).replace(/\r?\n/g, "\\n"),
+        },
+      }));
+    });
+
+    it("works with no stack", function() {
+      const error = new Error("an error\nnext line");
+      error.stack = undefined;
+      assert.deepEqual(InternalServerError(error), new ShioriJK.Message.Response({
+        status_line: {code: 500},
+        headers: {
+          "X-Shiori-Error": "an error\\nnext line",
+        },
+      }));
+    });
   });
 });
