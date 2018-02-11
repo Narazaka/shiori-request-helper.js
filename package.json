@@ -16,7 +16,9 @@
     "prepublishOnly": "npm run lint && npm run test",
     "dist": "rimraf dist && tsc",
     "test": "nyc mocha",
-    "lint": "tslint -p ."
+    "lint": "tslint -p .",
+    "docdist": "cd doc && git clean -fd && git rm -rf * && cd .. && npm run doc && cd doc && touch .nojekyll && git add . && git commit -m doc && git push",
+    "doc": "typedoc --mode file --out doc --readme Readme.md --disableOutputCheck --excludeNotExported lib && cd doc && git status && cd .."
   },
   "dependencies": {
     "shiorijk": "^1.0.1"
@@ -29,6 +31,7 @@
     "rimraf": "^2.6.2",
     "ts-node": "^4.1.0",
     "tslint": "^5.9.1",
+    "typedoc": "^0.10.0",
     "typescript": "^2.7.1"
   },
   "url": "https://github.com/Narazaka/shiori-request-helper.js",
