@@ -16,7 +16,7 @@ export interface Headers {
  * wraps request callback
  * @param requestCallback main request callback
  * @param defaultHeaders default headers
- * @return request callback
+ * @return request callback (returns response object)
  */
 export function wrapRequestCallback(requestCallback: RequestCallback, defaultHeaders: Headers = {}) {
   const requestParser = new ShioriJK.Shiori.Request.Parser();
@@ -35,7 +35,7 @@ export function wrapRequestCallback(requestCallback: RequestCallback, defaultHea
       if (headers.header[name] == null) headers.header[name] = defaultHeaders[name];
     }
 
-    return response.toString();
+    return response;
   }
 
   /**
@@ -70,6 +70,21 @@ export function wrapRequestCallback(requestCallback: RequestCallback, defaultHea
     } catch (error) {
       return buildResponse(InternalServerError());
     }
+  };
+}
+
+/**
+ * wraps request callback
+ * @param requestCallback main request callback
+ * @param defaultHeaders default headers
+ * @return request callback (returns response string)
+ */
+export function wrapRequestStringCallback(requestCallback: RequestCallback, defaultHeaders: Headers = {}) {
+  const wrappedCallback = wrapRequestCallback(requestCallback, defaultHeaders);
+
+  // tslint:disable-next-line promise-function-async
+  return function request(requestStr: string | ShioriJK.Message.Request) {
+    return wrappedCallback(requestStr).then((response) => response.toString());
   };
 }
 

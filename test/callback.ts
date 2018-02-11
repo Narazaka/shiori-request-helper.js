@@ -2,7 +2,7 @@
 
 // tslint:disable no-implicit-dependencies
 import * as ShioriJK from "shiorijk";
-import { OK, wrapRequestCallback } from "../lib/shiori-request-helper";
+import { OK, wrapRequestCallback, wrapRequestStringCallback } from "../lib/shiori-request-helper";
 
 import * as assert from "assert";
 
@@ -12,36 +12,32 @@ const request3obj = new ShioriJK.Message.Request({request_line: {version: "3.0",
 const request3 = request3obj.toString();
 const request2 = new ShioriJK.Message.Request({request_line: {version: "2.6", method: "GET Sentence"}}).toString();
 
-function parseResponse(responseStr: string) {
-  return new ShioriJK.Shiori.Response.Parser().parse(responseStr);
-}
-
-describe("generateRequestCallback", () => {
+describe("wrapRequestCallback", () => {
   describe("request acceptance", () => {
     context("SHIORI/3.x", () => {
       it("causes OK", async () => assert.equal(
-        parseResponse(await wrapRequestCallback(() => 1)(request3)).status_line.code,
+        (await wrapRequestCallback(() => 1)(request3)).status_line.code,
         200,
       ));
     });
 
     context("SHIORI/2.x", () => {
       it("causes Bad Request", async () => assert.equal(
-        parseResponse(await wrapRequestCallback(() => 1)(request2)).status_line.code,
+        (await wrapRequestCallback(() => 1)(request2)).status_line.code,
         400,
       ));
     });
 
     context("invalid request", () => {
       it("causes Bad Request", async () => assert.equal(
-        parseResponse(await wrapRequestCallback(() => 1)("foo")).status_line.code,
+        (await wrapRequestCallback(() => 1)("foo")).status_line.code,
         400,
       ));
     });
 
     context("SHIORI/3.x object", () => {
       it("causes OK", async () => assert.equal(
-        parseResponse(await wrapRequestCallback(() => 1)(request3obj)).status_line.code,
+        (await wrapRequestCallback(() => 1)(request3obj)).status_line.code,
         200,
       ));
     });
@@ -77,36 +73,36 @@ describe("generateRequestCallback", () => {
     function describeCallbacks(type: "sync" | "async", callbacks: typeof syncCallbacks | typeof asyncCallbacks) {
       describe(`${type} callback`, function() {
         it("accepts string value", async () => assert.equal(
-          parseResponse(await wrapRequestCallback(callbacks.string)(request3)).headers.get("Value"),
+          (await wrapRequestCallback(callbacks.string)(request3)).headers.get("Value"),
           "str",
         ));
         it("accepts empty string value", async () => assert.equal(
-          parseResponse(await wrapRequestCallback(callbacks.emptyString)(request3)).status_line.code,
+          (await wrapRequestCallback(callbacks.emptyString)(request3)).status_line.code,
           204,
         ));
         it("accepts number value", async () => assert.equal(
-          parseResponse(await wrapRequestCallback(callbacks.number)(request3)).headers.get("Value"),
+          (await wrapRequestCallback(callbacks.number)(request3)).headers.get("Value"),
           "42",
         ));
         it("accepts zero number value", async () => assert.equal(
-          parseResponse(await wrapRequestCallback(callbacks.zeroNumber)(request3)).headers.get("Value"),
+          (await wrapRequestCallback(callbacks.zeroNumber)(request3)).headers.get("Value"),
           "0",
         ));
         it("accepts null value", async () => assert.equal(
           // tslint:disable-next-line no-any
-          parseResponse(await wrapRequestCallback(callbacks.null as any)(request3)).status_line.code,
+          (await wrapRequestCallback(callbacks.null as any)(request3)).status_line.code,
           204,
         ));
         it("accepts undefined value", async () => assert.equal(
-          parseResponse(await wrapRequestCallback(callbacks.undefined)(request3)).status_line.code,
+          (await wrapRequestCallback(callbacks.undefined)(request3)).status_line.code,
           204,
         ));
         it("accepts void", async () => assert.equal(
-          parseResponse(await wrapRequestCallback(callbacks.void)(request3)).status_line.code,
+          (await wrapRequestCallback(callbacks.void)(request3)).status_line.code,
           204,
         ));
         it("accepts error", async () => assert.equal(
-          parseResponse(await wrapRequestCallback(callbacks.error)(request3)).status_line.code,
+          (await wrapRequestCallback(callbacks.error)(request3)).status_line.code,
           500,
         ));
         it("accepts response", async () => assert.deepEqual(
@@ -116,7 +112,7 @@ describe("generateRequestCallback", () => {
               Value: "res",
             },
           }),
-          parseResponse(await wrapRequestCallback(callbacks.response)(request3)),
+          (await wrapRequestCallback(callbacks.response)(request3)),
         ));
       });
     }
@@ -128,7 +124,7 @@ describe("generateRequestCallback", () => {
     context("no default headers", function() {
       it("is same", async () => assert.deepEqual(
         {Value: "1"},
-        parseResponse(await wrapRequestCallback(() => 1)(request3)).headers.header),
+        (await wrapRequestCallback(() => 1)(request3)).headers.header),
       );
     });
     context("with default headers", function() {
@@ -136,14 +132,14 @@ describe("generateRequestCallback", () => {
         const defaultHeaders = {To: "sakura"};
         it("appended", async () => assert.deepEqual(
           {Value: "1", To: "sakura"},
-          parseResponse(await wrapRequestCallback(() => 1, defaultHeaders)(request3)).headers.header),
+          (await wrapRequestCallback(() => 1, defaultHeaders)(request3)).headers.header),
         );
       });
       context("same headers exist in return value", () => {
         const defaultHeaders = {Value: "sakura"};
         it("is not overwrited", async () => assert.deepEqual(
           {Value: "1"},
-          parseResponse(await wrapRequestCallback(() => 1, defaultHeaders)(request3)).headers.header),
+          (await wrapRequestCallback(() => 1, defaultHeaders)(request3)).headers.header),
         );
       });
       describe("rewrite", () => {
@@ -152,15 +148,24 @@ describe("generateRequestCallback", () => {
           const callback = wrapRequestCallback(() => 1, defaultHeaders);
           assert.deepEqual(
             {Value: "1", Charset: "Shift_JIS"},
-            parseResponse(await callback(request3)).headers.header,
+            (await callback(request3)).headers.header,
           );
           defaultHeaders.Charset = "UTF-8";
           assert.deepEqual(
             {Value: "1", Charset: "UTF-8"},
-            parseResponse(await callback(request3)).headers.header,
+            (await callback(request3)).headers.header,
           );
         });
       });
     });
   });
+});
+
+describe("wrapRequestStringCallback", () => {
+  const callback = () => 1;
+
+  it("same response as wrapRequestCallback", async () => assert.equal(
+    (await wrapRequestCallback(callback)(request3)).toString(),
+    (await wrapRequestStringCallback(callback)(request3)),
+  ));
 });
