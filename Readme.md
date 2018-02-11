@@ -52,6 +52,10 @@ const defaultHeaders = { Charset: "UTF-8", Sender: "foo" };
 export default wrapRequestCallback(myRequestCallback, defaultHeaders);
 ```
 
+## API Document
+
+[https://narazaka.github.io/shiori-request-helper.js/](https://narazaka.github.io/shiori-request-helper.js/)
+
 ## License
 
 This is released under [MIT License](http://narazaka.net/license/MIT?2017).
