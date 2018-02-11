@@ -35,23 +35,8 @@ export function completeResponse(response: ShioriJK.Message.Response, defaultHea
 }
 
 /**
- * generate `completeResponse()` with default headers
- * @param defaultHeaders default headers
- */
-export function generateCompleteResponseWithDefault(defaultHeaders: Headers) {
-  /**
-   * complete response struct with default headers
-   * @param response response
-   */
-  return function completeResponseWithDefault(response: ShioriJK.Message.Response) {
-    return completeResponse(response, defaultHeaders);
-  };
-}
-
-/**
  * handle request with lazy callback return
  * @param requestParser request parser
- * @param completeResponseWithDefault `generateCompleteResponseWithDefault()`
  * @param requestCallback lazy request callback
  * @param requestStr request string
  */
@@ -94,9 +79,8 @@ export async function handleRequestLazy(
  * @param defaultHeaders default headers
  * @return request callback (returns response object)
  */
-export function wrapRequestCallback(requestCallback: RequestCallback, defaultHeaders: Headers = {}) {
+export function wrapRequestCallback(requestCallback: RequestCallback, defaultHeaders?: Headers) {
   const requestParser = new ShioriJK.Shiori.Request.Parser();
-  const completeResponseWithDefault = generateCompleteResponseWithDefault(defaultHeaders);
 
   /**
    * SHIORI request()
@@ -104,7 +88,7 @@ export function wrapRequestCallback(requestCallback: RequestCallback, defaultHea
    * @return SHIORI Response
    */
   return async function request(requestStr: string | ShioriJK.Message.Request) {
-    return completeResponseWithDefault(await handleRequestLazy(requestParser, requestCallback, requestStr));
+    return completeResponse(await handleRequestLazy(requestParser, requestCallback, requestStr), defaultHeaders);
   };
 }
 
