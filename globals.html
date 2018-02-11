@@ -103,7 +103,7 @@
 					<div class="tsd-signature tsd-kind-icon">Request<wbr>Callback<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/Narazaka/shiori-request-helper.js/blob/f9d3e42/lib/shiori-request-helper.ts#L4">shiori-request-helper.ts:4</a></li>
+							<li>Defined in <a href="https://github.com/Narazaka/shiori-request-helper.js/blob/ab344a9/lib/shiori-request-helper.ts#L4">shiori-request-helper.ts:4</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -139,7 +139,7 @@
 					<div class="tsd-signature tsd-kind-icon">Request<wbr>Callback<wbr>Return<wbr>Value<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">ShioriJK.Message.Response</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">ShioriJK.Message.Response</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">void</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/Narazaka/shiori-request-helper.js/blob/f9d3e42/lib/shiori-request-helper.ts#L7">shiori-request-helper.ts:7</a></li>
+							<li>Defined in <a href="https://github.com/Narazaka/shiori-request-helper.js/blob/ab344a9/lib/shiori-request-helper.ts#L7">shiori-request-helper.ts:7</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -161,7 +161,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Narazaka/shiori-request-helper.js/blob/f9d3e42/lib/shiori-request-helper.ts#L150">shiori-request-helper.ts:150</a></li>
+									<li>Defined in <a href="https://github.com/Narazaka/shiori-request-helper.js/blob/ab344a9/lib/shiori-request-helper.ts#L165">shiori-request-helper.ts:165</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -178,13 +178,13 @@
 					<a name="internalservererror" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagConst">Const</span> Internal<wbr>Server<wbr>Error</h3>
 					<ul class="tsd-signatures tsd-kind-function">
-						<li class="tsd-signature tsd-kind-icon">Internal<wbr>Server<wbr>Error<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Response</span></li>
+						<li class="tsd-signature tsd-kind-icon">Internal<wbr>Server<wbr>Error<span class="tsd-signature-symbol">(</span>message<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Error</span>, header<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Response</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Narazaka/shiori-request-helper.js/blob/f9d3e42/lib/shiori-request-helper.ts#L156">shiori-request-helper.ts:156</a></li>
+									<li>Defined in <a href="https://github.com/Narazaka/shiori-request-helper.js/blob/ab344a9/lib/shiori-request-helper.ts#L171">shiori-request-helper.ts:171</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -192,6 +192,15 @@
 									<p>500 Internal Server Error</p>
 								</div>
 							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> message: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Error</span></h5>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> header: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;&quot;X-Shiori-Error&quot;</span></h5>
+								</li>
+							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Response</span></h4>
 							<p>SHIORI Response</p>
 						</li>
@@ -207,7 +216,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Narazaka/shiori-request-helper.js/blob/f9d3e42/lib/shiori-request-helper.ts#L144">shiori-request-helper.ts:144</a></li>
+									<li>Defined in <a href="https://github.com/Narazaka/shiori-request-helper.js/blob/ab344a9/lib/shiori-request-helper.ts#L159">shiori-request-helper.ts:159</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -230,7 +239,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Narazaka/shiori-request-helper.js/blob/f9d3e42/lib/shiori-request-helper.ts#L124">shiori-request-helper.ts:124</a></li>
+									<li>Defined in <a href="https://github.com/Narazaka/shiori-request-helper.js/blob/ab344a9/lib/shiori-request-helper.ts#L139">shiori-request-helper.ts:139</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -268,7 +277,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Narazaka/shiori-request-helper.js/blob/f9d3e42/lib/shiori-request-helper.ts#L114">shiori-request-helper.ts:114</a></li>
+									<li>Defined in <a href="https://github.com/Narazaka/shiori-request-helper.js/blob/ab344a9/lib/shiori-request-helper.ts#L129">shiori-request-helper.ts:129</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -291,7 +300,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Narazaka/shiori-request-helper.js/blob/f9d3e42/lib/shiori-request-helper.ts#L20">shiori-request-helper.ts:20</a></li>
+									<li>Defined in <a href="https://github.com/Narazaka/shiori-request-helper.js/blob/ab344a9/lib/shiori-request-helper.ts#L20">shiori-request-helper.ts:20</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -322,13 +331,14 @@
 					<a name="handlerequestlazy" class="tsd-anchor"></a>
 					<h3>handle<wbr>Request<wbr>Lazy</h3>
 					<ul class="tsd-signatures tsd-kind-function">
-						<li class="tsd-signature tsd-kind-icon">handle<wbr>Request<wbr>Lazy<span class="tsd-signature-symbol">(</span>requestParser<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ShioriJK.Shiori.Request.Parser</span>, requestCallback<span class="tsd-signature-symbol">: </span><a href="globals.html#requestcallback" class="tsd-signature-type">RequestCallback</a>, requestStr<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">ShioriJK.Message.Request</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Response</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">handle<wbr>Request<wbr>Lazy<span class="tsd-signature-symbol">(</span>requestStr<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">ShioriJK.Message.Request</span>, requestCallback<span class="tsd-signature-symbol">: </span><a href="globals.html#requestcallback" class="tsd-signature-type">RequestCallback</a>, requestParser<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ShioriJK.Shiori.Request.Parser</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">ShioriJK.Message.Response</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">handle<wbr>Request<wbr>Lazy<span class="tsd-signature-symbol">(</span>request<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ShioriJK.Message.Request</span>, requestCallback<span class="tsd-signature-symbol">: </span><a href="globals.html#requestcallback" class="tsd-signature-type">RequestCallback</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">ShioriJK.Message.Response</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Narazaka/shiori-request-helper.js/blob/f9d3e42/lib/shiori-request-helper.ts#L43">shiori-request-helper.ts:43</a></li>
+									<li>Defined in <a href="https://github.com/Narazaka/shiori-request-helper.js/blob/ab344a9/lib/shiori-request-helper.ts#L43">shiori-request-helper.ts:43</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -339,9 +349,9 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>requestParser: <span class="tsd-signature-type">ShioriJK.Shiori.Request.Parser</span></h5>
+									<h5>requestStr: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">ShioriJK.Message.Request</span></h5>
 									<div class="tsd-comment tsd-typography">
-										<p>request parser</p>
+										<p>request string or object</p>
 									</div>
 								</li>
 								<li>
@@ -351,13 +361,41 @@
 									</div>
 								</li>
 								<li>
-									<h5>requestStr: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">ShioriJK.Message.Request</span></h5>
+									<h5>requestParser: <span class="tsd-signature-type">ShioriJK.Shiori.Request.Parser</span></h5>
 									<div class="tsd-comment tsd-typography">
-										<p>request string</p>
+										<p>request parser</p>
 									</div>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Response</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">ShioriJK.Message.Response</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/Narazaka/shiori-request-helper.js/blob/ab344a9/lib/shiori-request-helper.ts#L53">shiori-request-helper.ts:53</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>handle request with lazy callback return</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>request: <span class="tsd-signature-type">ShioriJK.Message.Request</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>request object</p>
+									</div>
+								</li>
+								<li>
+									<h5>requestCallback: <a href="globals.html#requestcallback" class="tsd-signature-type">RequestCallback</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>lazy request callback</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">ShioriJK.Message.Response</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -371,7 +409,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Narazaka/shiori-request-helper.js/blob/f9d3e42/lib/shiori-request-helper.ts#L82">shiori-request-helper.ts:82</a></li>
+									<li>Defined in <a href="https://github.com/Narazaka/shiori-request-helper.js/blob/ab344a9/lib/shiori-request-helper.ts#L97">shiori-request-helper.ts:97</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -409,7 +447,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Narazaka/shiori-request-helper.js/blob/f9d3e42/lib/shiori-request-helper.ts#L101">shiori-request-helper.ts:101</a></li>
+									<li>Defined in <a href="https://github.com/Narazaka/shiori-request-helper.js/blob/ab344a9/lib/shiori-request-helper.ts#L116">shiori-request-helper.ts:116</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
