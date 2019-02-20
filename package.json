@@ -1,6 +1,6 @@
 {
   "name": "shiori-request-helper",
-  "version": "2.3.1",
+  "version": "2.3.2",
   "description": "Ukagaka SHIORI request() handler wrapper and utilities",
   "keywords": [
     "ukagaka",
