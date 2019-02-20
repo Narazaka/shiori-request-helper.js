@@ -16,7 +16,7 @@
     "prepublishOnly": "npm run lint && npm run test",
     "dist": "rimraf dist && tsc",
     "test": "nyc mocha",
-    "lint": "tslint -p .",
+    "lint": "tslint -p . -t verbose",
     "docdist": "cd doc && git clean -fd && git rm -rf * && cd .. && npm run doc && cd doc && touch .nojekyll && git add . && git commit -m doc && git push",
     "doc": "typedoc --mode file --out doc --readme Readme.md --disableOutputCheck --excludeNotExported lib && cd doc && git status && cd .."
   },

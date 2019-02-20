@@ -24,6 +24,7 @@
         "strict-type-predicates": false,
         "strict-boolean-expressions": false,
         "no-use-before-declare": false,
-        "no-void-expression": [true, "ignore-arrow-function-shorthand"]
+        "no-void-expression": [true, "ignore-arrow-function-shorthand"],
+        "file-name-casing": false
     }
 }
