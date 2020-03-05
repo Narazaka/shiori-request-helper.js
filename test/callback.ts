@@ -1,5 +1,4 @@
 /* eslint-disable func-names */
-/// <reference types="mocha" />
 
 // tslint:disable no-implicit-dependencies
 import * as ShioriJK from "shiorijk";

@@ -18,7 +18,6 @@
     "import/prefer-default-export": "off",
     "max-classes-per-file": "off",
     "no-restricted-syntax": "off",
-    "@typescript-eslint/no-use-before-define": "off",
-    "spaced-comment": "off"
+    "@typescript-eslint/no-use-before-define": "off"
   }
 }
