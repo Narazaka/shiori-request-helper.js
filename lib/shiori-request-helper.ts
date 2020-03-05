@@ -5,7 +5,11 @@ export type RequestCallback = (request: ShioriJK.Message.Request) => RequestCall
 
 /** SHIORI request() callback return value */
 export type RequestCallbackReturnValue =
-  Promise<string | number | ShioriJK.Message.Response | void> | string | number | ShioriJK.Message.Response | void;
+  | Promise<string | number | ShioriJK.Message.Response | void>
+  | string
+  | number
+  | ShioriJK.Message.Response
+  | void;
 
 /** default headers */
 export interface Headers {
@@ -19,12 +23,11 @@ export interface Headers {
  */
 export function completeResponse(response: ShioriJK.Message.Response, defaultHeaders: Headers = {}) {
   const statusLine = response.status_line;
-  const headers = response.headers;
+  const { headers } = response;
   if (!statusLine.version) statusLine.version = "3.0";
   if (!statusLine.code) {
     const value = headers.header.Value;
-    statusLine.code = // tslint:disable-next-line triple-equals no-null-keyword no-magic-numbers
-      value != null && value.toString().length ? 200 : 204;
+    statusLine.code = value != null && value.toString().length ? 200 : 204; // tslint:disable-next-line triple-equals no-null-keyword no-magic-numbers
   }
   for (const name of Object.keys(defaultHeaders)) {
     // tslint:disable-next-line triple-equals no-null-keyword
@@ -59,6 +62,7 @@ export async function handleRequestLazy(
   requestCallback: RequestCallback,
   requestParser?: ShioriJK.Shiori.Request.Parser,
 ) {
+  // eslint-disable-next-line no-underscore-dangle
   let _request;
   if (typeof requestStr === "string") {
     try {
@@ -78,11 +82,11 @@ export async function handleRequestLazy(
     // tslint:disable-next-line triple-equals no-null-keyword
     if (response == null) {
       return NoContent();
-    } else if (typeof response === "string" || typeof response === "number") {
-      return OK(response);
-    } else {
-      return response;
     }
+    if (typeof response === "string" || typeof response === "number") {
+      return OK(response);
+    }
+    return response;
   } catch (error) {
     return InternalServerError(error);
   }
@@ -118,7 +122,7 @@ export function wrapRequestStringCallback(requestCallback: RequestCallback, defa
 
   // tslint:disable-next-line promise-function-async
   return function request(requestStr: string | ShioriJK.Message.Request) {
-    return wrappedCallback(requestStr).then((response) => response.toString());
+    return wrappedCallback(requestStr).then(response => response.toString());
   };
 }
 
@@ -147,22 +151,21 @@ export function OK(value?: string | number, to?: string) {
     if (to) response.headers.header.Reference0 = to;
 
     return response;
-  } else {
-    return NoContent();
   }
+  return NoContent();
 }
 
 /**
  * 204 No Content
  * @return SHIORI Response
  */
-export const NoContent = () => new ShioriJK.Message.Response({status_line: {code: 204} });
+export const NoContent = () => new ShioriJK.Message.Response({ status_line: { code: 204 } });
 
 /**
  * 400 Bad Request
  * @return SHIORI Response
  */
-export const BadRequest = () => new ShioriJK.Message.Response({status_line: {code: 400} });
+export const BadRequest = () => new ShioriJK.Message.Response({ status_line: { code: 400 } });
 
 /**
  * 500 Internal Server Error
@@ -170,9 +173,14 @@ export const BadRequest = () => new ShioriJK.Message.Response({status_line: {cod
  */
 export const InternalServerError = (message?: string | Error, header = "X-Shiori-Error") =>
   new ShioriJK.Message.Response({
-    status_line: {code: 500},
-    headers: message === undefined ? {} : {
-      [header]:
-        (message instanceof Error ? message.stack || message.message : message.toString()).replace(/\r?\n/g, "\\n"),
-    },
+    status_line: { code: 500 },
+    headers:
+      message === undefined
+        ? {}
+        : {
+            [header]: (message instanceof Error ? message.stack || message.message : message.toString()).replace(
+              /\r?\n/g,
+              "\\n",
+            ),
+          },
   });
